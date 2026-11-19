@@ -58,10 +58,12 @@ class Contato{
 
     public function setEmail(string $email): void
     {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $email = trim($email);
+    
+        if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException('E-mail inválido');
         }
-
+    
         $this->email = $email;
     }
 
@@ -72,8 +74,8 @@ class Contato{
 
     public function validar(): void
     {
-        if ($this->nome === '' || $this->telefone === '' || $this->email === '') {
-            throw new InvalidArgumentException('Nome, telefone e e-mail são obrigatórios');
+        if ($this->nome === '' || $this->telefone === '') {
+            throw new InvalidArgumentException('Nome e telefone são obrigatórios');
         }
     }
 

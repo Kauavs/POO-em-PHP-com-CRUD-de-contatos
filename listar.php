@@ -1,6 +1,6 @@
 <?php
 
-/** @var Contato[] $contatos lista enviada pelo ContatoController */
+/**    @var Contato[] $contatos lista enviada pelo ContatoController */
 
 ?>
 
@@ -14,7 +14,7 @@
         <body>
             <h1>Agenda Telefônica</h1>
             
-            <a href="create.php">Adicionar Novo Contato</a>
+            <a href="form.php">Adicionar Novo Contato</a>
             
             <h2>Lista de Contatos</h2>
             
