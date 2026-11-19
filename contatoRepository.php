@@ -4,6 +4,10 @@ class ContatoRepository implements ContatoRepositoryInterface {
 
     private mysqli $conn;
 
+    public function __construct(Conexaobanco $db) { // Construtor recebe a conexão com o banco de dados
+        $this->conn = $db->getConnection();
+    }
+
     public function listar(): array {
         $result = $this->conn->query("SELECT * FROM contatos ORDER BY nome ASC");
         $contatos = [];  // Cria um array vazio que vai receber os objetos Contato

@@ -1,12 +1,13 @@
 <?php
+
 // Configurações do banco de dados
 Class Conexaobanco{
 
     private string $host = 'localhost';
     private string $username = "root";
-    private string $password = "root";
+    private string $password = "";
     private string $database = "agenda";
-    private int $port = 3306;
+    private int $port = 3308;
 
     private ?mysqli $conn = null;
 
