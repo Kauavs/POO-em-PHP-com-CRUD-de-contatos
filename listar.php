@@ -10,16 +10,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda Telefônica</title>
-        </head>
-        <body>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <div class="container">
+
+        <header class="topo">
             <h1>Agenda Telefônica</h1>
-            
-            <a href="form.php">Adicionar Novo Contato</a>
-            
+            <a class="btn" href="index.php?acao=novo">+ Novo contato</a>
+        </header>
+
+        <div class="cartao">
             <h2>Lista de Contatos</h2>
-            
+
             <?php if (count($contatos) > 0): ?>
-            <table border="1" cellpadding="5">
+            <table class="tabela">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -38,18 +43,19 @@
                             <td><?php echo htmlspecialchars($c->getTelefone()); ?></td>
                             <td><?php echo htmlspecialchars($c->getEmail()); ?></td>
                             <td><?php echo date('d/m/Y H:i', strtotime($c->getDataCadastro())); ?></td>
-                            <td>
-                                <a href="edit.php?id=<?php echo $c->getId(); ?>">Editar</a> |
-                                <a href="delete.php?id=<?php echo $c->getId(); ?>" onclick="return confirm('Tem certeza que deseja excluir este contato?');">Excluir</a>
+                            <td class="acoes">
+                                <a class="acao" href="edit.php?id=<?php echo $c->getId(); ?>">Editar</a>
+                                <a class="acao excluir" href="delete.php?id=<?php echo $c->getId(); ?>" onclick="return confirm('Tem certeza que deseja excluir este contato?');">Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        <?php else: ?>
-            <p>Nenhum contato encontrado.</p>
-        <?php endif; ?>
-    
-    
+            <?php else: ?>
+                <p class="vazio">Nenhum contato encontrado.</p>
+            <?php endif; ?>
+        </div>
+
+    </div>
 </body>
 </html>
