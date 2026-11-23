@@ -58,7 +58,7 @@ class ContatoRepository implements ContatoRepositoryInterface {
         $c->setId((int) $row['id']);
         $c->setNome($row['nome']);
         $c->setTelefone($row['telefone']);
-        $c->setEmail($row['email']);
+        $c->setEmail($row['email'] ?? '');
         $c->setDataCadastro($row['data_cadastro']);
         return $c;
     }
