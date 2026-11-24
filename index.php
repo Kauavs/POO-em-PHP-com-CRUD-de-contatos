@@ -1,10 +1,10 @@
 <?php
 
 require_once 'config/database.php';
-require_once 'contato.php';
-require_once 'contatoRepositoryInterface.php';
-require_once 'contatoRepository.php';
-require_once 'contatoController.php';
+require_once 'models/Contato.php';
+require_once 'models/ContatoRepositoryInterface.php';
+require_once 'models/ContatoRepository.php';
+require_once 'controllers/ContatoController.php';
 
 try {
     $db = new Conexaobanco();
