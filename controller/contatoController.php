@@ -10,7 +10,7 @@ class ContatoController {
 
     public function index(): void {
         $contatos = $this->repo->listar();
-        require 'listar.php';
+        require __DIR__ . '/../views/listar.php';
 
     }
     public function novo(): void {
@@ -123,7 +123,7 @@ class ContatoController {
     
         // Prepara as variáveis do formulário e carrega a view
         private function mostrarFormulario(string $titulo, string $acao, string $botao, array $dados, array $erros): void {
-            require __DIR__ . '/form.php';
+            require __DIR__ . '/../views/form.php';
         }
         
         // Exclui o contato e volta para a lista (só aceita POST)

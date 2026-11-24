@@ -1,10 +1,10 @@
 <?php
 
-require_once 'config/database.php';
-require_once 'models/Contato.php';
-require_once 'models/ContatoRepositoryInterface.php';
-require_once 'models/ContatoRepository.php';
-require_once 'controllers/ContatoController.php';
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/models/Contato.php';
+require_once __DIR__ . '/models/ContatoRepositoryInterface.php';
+require_once __DIR__ . '/models/ContatoRepository.php';
+require_once __DIR__ . '/controller/ContatoController.php';
 
 try {
     $db = new Conexaobanco();

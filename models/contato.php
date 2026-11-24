@@ -48,12 +48,25 @@ class Contato{
     }
 
     public function setTelefone(string $telefone): void {
+        $telefone = trim($telefone);
 
-        if(trim($telefone) === '') {
-            throw new InvalidArgumentException("O Telefone não pode ser vazio.");
+        if ($telefone === '') {
+            throw new InvalidArgumentException("O telefone não pode ser vazio.");
         }
 
-        $this->telefone = trim($telefone);
+        // só aceita números, espaço, parênteses e hífen
+        if (!preg_match('/^[0-9\s()\-]+$/', $telefone)) {
+            throw new InvalidArgumentException("O telefone deve conter apenas números.");
+        }
+
+        // conta só os dígitos: DDD + número = 10 (fixo) ou 11 (celular)
+        $digitos = preg_replace('/\D/', '', $telefone);
+
+        if (strlen($digitos) < 10 || strlen($digitos) > 11) {
+            throw new InvalidArgumentException("Informe o telefone com DDD (10 ou 11 dígitos).");
+        }
+
+        $this->telefone = $telefone;
     }
 
     public function setEmail(string $email): void

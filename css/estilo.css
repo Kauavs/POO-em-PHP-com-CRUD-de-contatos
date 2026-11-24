@@ -1,371 +1,471 @@
 /* ==========================================================
-   Agenda Telefônica - estilo.css
+   Agenda Telefônica - estilo.css (tema bordô)
    ========================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ---------- Cores e medidas (mude aqui para mudar o tema todo) ---------- */
-:root {
-    --primaria: #4f46e5;
-    --primaria-escura: #4338ca;
-    --primaria-suave: #eef2ff;
-    --botao: #4f46e5;
-    --botao-hover: #4338ca;
-    --perigo: #dc2626;
-    --perigo-suave: #fef2f2;
-
-    --fundo: #f1f5f9;
-    --fundo-topo: #e0e7ff;
-    --cartao: #ffffff;
-    --texto: #0f172a;
-    --texto-suave: #64748b;
-    --borda: #e2e8f0;
-    --linha-hover: #f8fafc;
-
-    --raio: 14px;
-    --sombra: 0 10px 30px -10px rgba(15, 23, 42, 0.15),
-              0 4px 10px -6px rgba(15, 23, 42, 0.08);
-}
-
-/* Tema escuro automático, se o sistema do usuário estiver no modo escuro */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primaria: #818cf8;
-        --primaria-escura: #6366f1;
-        --primaria-suave: #1e1b4b;
-        --botao: #6366f1;
-        --botao-hover: #4f46e5;
-        --perigo: #f87171;
-        --perigo-suave: #450a0a;
-
-        --fundo: #0b1120;
-        --fundo-topo: #1e1b4b;
-        --cartao: #131c31;
-        --texto: #e2e8f0;
-        --texto-suave: #94a3b8;
-        --borda: #243049;
-        --linha-hover: #18233d;
-
-        --sombra: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
-    }
-}
-
-/* ---------- Base ---------- */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
-    color: var(--texto);
-    background: linear-gradient(180deg, var(--fundo-topo) 0, var(--fundo) 320px) no-repeat, var(--fundo);
-}
-
-.container {
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 48px 20px 64px;
-}
-
-.container-estreito {
-    max-width: 560px;
-}
-
-/* ---------- Cabeçalho da página ---------- */
-.topo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 28px;
-}
-
-h1,
-.titulo {
-    margin: 0;
-    font-size: 30px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-}
-
-.topo h1::before,
-.titulo::before {
-    content: '📒';
-    margin-right: 12px;
-}
-
-/* ---------- Cartão (caixa branca) ---------- */
-.cartao {
-    background: var(--cartao);
-    border: 1px solid var(--borda);
-    border-radius: var(--raio);
-    box-shadow: var(--sombra);
-    padding: 28px;
-}
-
-.cartao h2 {
-    margin: 0 0 20px;
-    font-size: 17px;
-    font-weight: 600;
-}
-
-/* ---------- Botões ---------- */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 11px 20px;
-    border: none;
-    border-radius: 10px;
-    background: var(--botao);
-    color: #fff;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-    box-shadow: 0 4px 12px -4px rgba(79, 70, 229, 0.6);
-}
-
-.btn:hover {
-    background: var(--botao-hover);
-    transform: translateY(-1px);
-}
-
-.btn:active {
-    transform: translateY(0);
-}
-
-.btn:focus-visible,
-.acao:focus-visible,
-.cancelar:focus-visible {
-    outline: 3px solid var(--primaria-suave);
-    outline-offset: 2px;
-}
-
-.cancelar {
-    margin-left: 6px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    color: var(--texto-suave);
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 0.15s ease, color 0.15s ease;
-}
-
-.cancelar:hover {
-    background: var(--linha-hover);
-    color: var(--texto);
-}
-
-/* ---------- Tabela de contatos ---------- */
-.tabela {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
-.tabela th {
-    padding: 0 16px 12px;
-    border-bottom: 2px solid var(--borda);
-    color: var(--texto-suave);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-align: left;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.tabela td {
-    padding: 16px;
-    border-bottom: 1px solid var(--borda);
-    vertical-align: middle;
-}
-
-.tabela tbody tr {
-    transition: background 0.12s ease;
-}
-
-.tabela tbody tr:hover td {
-    background: var(--linha-hover);
-}
-
-.tabela tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* coluna 1: ID */
-.tabela td:first-child {
-    width: 56px;
-    color: var(--texto-suave);
-    font-size: 13px;
-    font-variant-numeric: tabular-nums;
-}
-
-/* coluna 2: nome */
-.tabela td:nth-child(2) {
-    font-weight: 600;
-}
-
-/* coluna 3: telefone (não quebra o número em duas linhas) */
-.tabela td:nth-child(3) {
-    white-space: nowrap;
-}
-
-/* coluna 5: data de cadastro */
-.tabela td:nth-child(5) {
-    color: var(--texto-suave);
-    font-size: 13px;
-    white-space: nowrap;
-}
-
-/* célula vazia (ex.: contato sem e-mail) mostra um traço */
-.tabela td:empty::before {
-    content: '—';
-    color: var(--texto-suave);
-}
-
-/* ---------- Links de ação (Editar / Excluir) ---------- */
-.acoes {
-    white-space: nowrap;
-    text-align: right;
-}
-
-.acao {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 8px;
-    color: var(--primaria);
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background 0.15s ease;
-}
-
-.acao:hover {
-    background: var(--primaria-suave);
-}
-
-.acao.excluir {
-    color: var(--perigo);
-}
-
-.acao.excluir:hover {
-    background: var(--perigo-suave);
-}
-
-/* ---------- Lista vazia ---------- */
-.vazio {
-    margin: 0;
-    padding: 48px 16px;
-    border: 2px dashed var(--borda);
-    border-radius: 12px;
-    color: var(--texto-suave);
-    text-align: center;
-}
-
-/* ---------- Formulário ---------- */
-.campo {
-    margin-bottom: 20px;
-}
-
-.campo label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.campo input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid var(--borda);
-    border-radius: 10px;
-    background: var(--cartao);
-    color: var(--texto);
-    font-family: inherit;
-    font-size: 15px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.campo input::placeholder {
-    color: var(--texto-suave);
-}
-
-.campo input:focus {
-    outline: none;
-    border-color: var(--primaria);
-    box-shadow: 0 0 0 4px var(--primaria-suave);
-}
-
-/* mensagem de erro ao lado do campo */
-.erro {
-    display: block;
-    margin-top: 6px;
-    color: var(--perigo);
-    font-size: 13px;
-    font-weight: 500;
-}
-
-.erro:empty {
-    display: none;
-}
-
-/* campo com erro ganha borda vermelha (navegadores modernos) */
-.campo:has(.erro:not(:empty)) input {
-    border-color: var(--perigo);
-    box-shadow: 0 0 0 4px var(--perigo-suave);
-}
-
-.botoes {
-    display: flex;
-    align-items: center;
-    margin-top: 28px;
-}
-
-/* ---------- Celular ---------- */
-@media (max-width: 640px) {
-    .container {
-        padding: 28px 14px 48px;
-    }
-
-    .topo {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    h1,
-    .titulo {
-        font-size: 24px;
-    }
-
-    .cartao {
-        padding: 18px;
-    }
-
-    /* tabela rola para o lado em telas pequenas */
-    .tabela {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-    .form-excluir {
-        display: inline;
-        margin: 0;
-    }
-    
-    button.acao {
-        border: none;
-        background: transparent;
-        font-family: inherit;
-        cursor: pointer;
-    }
-}
+   /* ---------- Cores e medidas (mude aqui para mudar o tema todo) ---------- */
+   :root {
+       --primaria: #800f2f;
+       --primaria-escura: #590d22;
+       --primaria-suave: #fbeef1;
+       --botao: #800f2f;
+       --botao-hover: #610c24;
+       --perigo: #d92d20;
+       --perigo-suave: #fef3f2;
+   
+       --fundo: #faf5f6;
+       --fundo-topo: #f0d9df;
+       --cartao: #ffffff;
+       --texto: #2a1218;
+       --texto-suave: #7a6068;
+       --borda: #ecdfe2;
+       --linha-hover: #fcf7f8;
+   
+       --raio: 16px;
+       --sombra: 0 12px 32px -12px rgba(89, 13, 34, 0.25),
+                 0 4px 10px -6px rgba(89, 13, 34, 0.12);
+   }
+   
+   /* Tema escuro automático, se o sistema do usuário estiver no modo escuro */
+   @media (prefers-color-scheme: dark) {
+       :root {
+           --primaria: #e07a94;
+           --primaria-escura: #c85a77;
+           --primaria-suave: #3a1420;
+           --botao: #a3173f;
+           --botao-hover: #8a1236;
+           --perigo: #f87171;
+           --perigo-suave: #4a1414;
+   
+           --fundo: #14090c;
+           --fundo-topo: #2d0f1a;
+           --cartao: #1f1115;
+           --texto: #f3e4e8;
+           --texto-suave: #b79aa3;
+           --borda: #3a2229;
+           --linha-hover: #28161c;
+   
+           --sombra: 0 12px 32px -12px rgba(0, 0, 0, 0.7);
+       }
+   }
+   
+   /* ---------- Base ---------- */
+   *,
+   *::before,
+   *::after {
+       box-sizing: border-box;
+   }
+   
+   body {
+       margin: 0;
+       min-height: 100vh;
+       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+       font-size: 15px;
+       line-height: 1.5;
+       color: var(--texto);
+       background: linear-gradient(180deg, var(--fundo-topo) 0, var(--fundo) 340px) no-repeat, var(--fundo);
+   }
+   
+   .container {
+       max-width: 1040px;
+       margin: 0 auto;
+       padding: 48px 20px 64px;
+   }
+   
+   .container-estreito {
+       max-width: 560px;
+   }
+   
+   /* ---------- Cabeçalho da página ---------- */
+   .topo {
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       gap: 16px;
+       margin-bottom: 28px;
+   }
+   
+   h1,
+   .titulo {
+       margin: 0;
+       color: var(--primaria-escura);
+       font-size: 30px;
+       font-weight: 700;
+       letter-spacing: -0.02em;
+   }
+   
+   @media (prefers-color-scheme: dark) {
+       h1,
+       .titulo {
+           color: var(--texto);
+       }
+   }
+   
+   .topo h1::before,
+   .titulo::before {
+       content: '📒';
+       margin-right: 12px;
+   }
+   
+   /* ---------- Cartão (caixa branca) ---------- */
+   .cartao {
+       background: var(--cartao);
+       border: 1px solid var(--borda);
+       border-radius: var(--raio);
+       box-shadow: var(--sombra);
+       padding: 28px;
+       overflow-x: auto; /* segurança: se algo ficar largo demais, rola dentro do cartão em vez de vazar */
+   }
+   
+   .cartao h2 {
+       margin: 0 0 22px;
+       padding-left: 12px;
+       border-left: 4px solid var(--primaria);
+       font-size: 17px;
+       font-weight: 600;
+       line-height: 1.2;
+   }
+   
+   /* ---------- Botões ---------- */
+   .btn {
+       display: inline-flex;
+       align-items: center;
+       gap: 8px;
+       padding: 11px 20px;
+       border: none;
+       border-radius: 10px;
+       background: var(--botao);
+       color: #fff;
+       font-family: inherit;
+       font-size: 14px;
+       font-weight: 600;
+       text-decoration: none;
+       cursor: pointer;
+       transition: background 0.15s ease, transform 0.15s ease;
+       box-shadow: 0 6px 14px -6px rgba(128, 15, 47, 0.7);
+   }
+   
+   .btn:hover {
+       background: var(--botao-hover);
+       transform: translateY(-1px);
+   }
+   
+   .btn:active {
+       transform: translateY(0);
+   }
+   
+   .btn:focus-visible,
+   .acao:focus-visible,
+   .cancelar:focus-visible {
+       outline: 3px solid var(--primaria-suave);
+       outline-offset: 2px;
+   }
+   
+   .cancelar {
+       margin-left: 6px;
+       padding: 10px 14px;
+       border-radius: 10px;
+       color: var(--texto-suave);
+       font-weight: 500;
+       text-decoration: none;
+       transition: background 0.15s ease, color 0.15s ease;
+   }
+   
+   .cancelar:hover {
+       background: var(--linha-hover);
+       color: var(--texto);
+   }
+   
+   /* ---------- Tabela de contatos ---------- */
+   .tabela {
+       width: 100%;
+       border-collapse: separate;
+       border-spacing: 0;
+   }
+   
+   .tabela th {
+       padding: 0 12px 12px;
+       border-bottom: 2px solid var(--primaria);
+       color: var(--texto-suave);
+       font-size: 12px;
+       font-weight: 600;
+       letter-spacing: 0.06em;
+       text-align: left;
+       text-transform: uppercase;
+       white-space: nowrap;
+   }
+   
+   .tabela td {
+       padding: 14px 12px;
+       border-bottom: 1px solid var(--borda);
+       vertical-align: middle;
+   }
+   
+   .tabela tbody tr {
+       transition: background 0.12s ease;
+   }
+   
+   .tabela tbody tr:hover td {
+       background: var(--linha-hover);
+   }
+   
+   .tabela tbody tr:last-child td {
+       border-bottom: none;
+   }
+   
+   /* coluna 1: ID */
+   .tabela td:first-child {
+       width: 48px;
+       color: var(--texto-suave);
+       font-size: 13px;
+       font-variant-numeric: tabular-nums;
+   }
+   
+   /* coluna 2 (nome) e coluna 4 (e-mail): quebram em várias linhas quando forem longos,
+      em vez de empurrar os botões para fora do cartão */
+   .tabela td:nth-child(2),
+   .tabela td:nth-child(4) {
+       overflow-wrap: anywhere;
+       word-break: break-word;
+   }
+   
+   .tabela td:nth-child(2) {
+       min-width: 140px;
+       font-weight: 600;
+   }
+   
+   .tabela td:nth-child(4) {
+       min-width: 120px;
+   }
+   
+   /* coluna 3: telefone (um número nunca é cortado no meio) */
+   .tabela td:nth-child(3) {
+       white-space: nowrap;
+   }
+   
+   /* coluna 5: data de cadastro (pode quebrar em duas linhas: data / hora) */
+   .tabela td:nth-child(5) {
+       width: 96px;
+       color: var(--texto-suave);
+       font-size: 13px;
+   }
+   
+   /* célula vazia (ex.: contato sem e-mail) mostra um traço */
+   .tabela td:empty::after {
+       content: '—';
+       color: var(--texto-suave);
+   }
+   
+   /* ---------- Links de ação (Editar / Excluir) ---------- */
+   .acoes {
+       white-space: nowrap;
+       text-align: right;
+   }
+   
+   /* título "Ações" alinhado à direita, bem em cima dos botões */
+   .tabela th:last-child {
+       padding-right: 24px;
+       text-align: right;
+   }
+   
+   .form-excluir {
+       display: inline;
+       margin: 0;
+   }
+   
+   .acao {
+       display: inline-block;
+       padding: 6px 12px;
+       border-radius: 8px;
+       color: var(--primaria);
+       font-size: 13px;
+       font-weight: 600;
+       text-decoration: none;
+       transition: background 0.15s ease;
+   }
+   
+   button.acao {
+       border: none;
+       background: transparent;
+       font-family: inherit;
+       cursor: pointer;
+   }
+   
+   .acao:hover {
+       background: var(--primaria-suave);
+   }
+   
+   .acao.excluir {
+       color: var(--perigo);
+   }
+   
+   .acao.excluir:hover {
+       background: var(--perigo-suave);
+   }
+   
+   /* ---------- Lista vazia ---------- */
+   .vazio {
+       margin: 0;
+       padding: 48px 16px;
+       border: 2px dashed var(--borda);
+       border-radius: 12px;
+       color: var(--texto-suave);
+       text-align: center;
+   }
+   
+   /* ---------- Formulário ---------- */
+   .campo {
+       margin-bottom: 20px;
+   }
+   
+   .campo label {
+       display: block;
+       margin-bottom: 6px;
+       font-size: 14px;
+       font-weight: 600;
+   }
+   
+   .campo input {
+       width: 100%;
+       padding: 12px 14px;
+       border: 1px solid var(--borda);
+       border-radius: 10px;
+       background: var(--cartao);
+       color: var(--texto);
+       font-family: inherit;
+       font-size: 15px;
+       transition: border-color 0.15s ease, box-shadow 0.15s ease;
+   }
+   
+   .campo input::placeholder {
+       color: var(--texto-suave);
+   }
+   
+   .campo input:focus {
+       outline: none;
+       border-color: var(--primaria);
+       box-shadow: 0 0 0 4px var(--primaria-suave);
+   }
+   
+   /* mensagem de erro ao lado do campo */
+   .erro {
+       display: block;
+       margin-top: 6px;
+       color: var(--perigo);
+       font-size: 13px;
+       font-weight: 500;
+   }
+   
+   .erro:empty {
+       display: none;
+   }
+   
+   /* campo com erro ganha borda vermelha (navegadores modernos) */
+   .campo:has(.erro:not(:empty)) input {
+       border-color: var(--perigo);
+       box-shadow: 0 0 0 4px var(--perigo-suave);
+   }
+   
+   .botoes {
+       display: flex;
+       align-items: center;
+       margin-top: 28px;
+   }
+   
+   /* ---------- Telas médias e celular: cada contato vira um cartãozinho ---------- */
+   @media (max-width: 760px) {
+       .container {
+           padding: 28px 14px 48px;
+       }
+   
+       .topo {
+           flex-direction: column;
+           align-items: flex-start;
+       }
+   
+       h1,
+       .titulo {
+           font-size: 24px;
+       }
+   
+       .cartao {
+           padding: 18px;
+       }
+   }
+   
+   /* Abaixo de 900px a tabela não cabe mais: cada contato vira um cartãozinho */
+   @media (max-width: 900px) {
+       .tabela,
+       .tabela tbody,
+       .tabela tr,
+       .tabela td {
+           display: block;
+           width: 100%;
+       }
+   
+       .tabela thead {
+           display: none;
+       }
+   
+       .tabela tr {
+           margin-bottom: 14px;
+           padding: 6px 0;
+           border: 1px solid var(--borda);
+           border-radius: 12px;
+       }
+   
+       .tabela tbody tr:hover td {
+           background: transparent;
+       }
+   
+       .tabela td,
+       .tabela td:first-child,
+       .tabela td:nth-child(2),
+       .tabela td:nth-child(4),
+       .tabela td:nth-child(5) {
+           display: flex;
+           align-items: baseline;
+           justify-content: space-between;
+           gap: 16px;
+           width: 100%;
+           min-width: 0;
+           padding: 8px 14px;
+           border-bottom: none;
+           color: var(--texto);
+           font-size: 15px;
+           text-align: right;
+       }
+   
+       .tabela td:nth-child(5) {
+           color: var(--texto-suave);
+           font-size: 13px;
+       }
+   
+       /* rótulo de cada campo, escrito só pelo CSS */
+       .tabela td::before {
+           flex-shrink: 0;
+           color: var(--texto-suave);
+           font-size: 12px;
+           font-weight: 600;
+           letter-spacing: 0.06em;
+           text-transform: uppercase;
+       }
+   
+       .tabela td:nth-child(1)::before { content: 'ID'; }
+       .tabela td:nth-child(2)::before { content: 'Nome'; }
+       .tabela td:nth-child(3)::before { content: 'Telefone'; }
+       .tabela td:nth-child(4)::before { content: 'E-mail'; }
+       .tabela td:nth-child(5)::before { content: 'Cadastro'; }
+   
+       .tabela td.acoes {
+           justify-content: flex-end;
+           padding-top: 4px;
+           border-top: 1px solid var(--borda);
+           margin-top: 4px;
+       }
+   
+       .tabela td.acoes::before {
+           content: none;
+       }
+   }
