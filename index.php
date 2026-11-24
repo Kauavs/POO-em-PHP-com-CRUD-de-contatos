@@ -20,6 +20,15 @@ try {
         case 'criar':
             $controller->criar();
             break;
+        case 'editar':
+            $controller->editar((int) ($_GET['id'] ?? 0));
+            break;
+        case 'atualizar':
+            $controller->atualizar();
+            break;
+        case 'excluir':
+            $controller->excluir();
+            break;
         default:
             $controller->index();
     }
