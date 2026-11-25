@@ -1,53 +1,62 @@
 <?php
 // Configurações do banco de dados
-class Contato{
+class Contato
+{
 
     private ?int $id = null;
     private string $nome = '';
     private string $telefone = '';
     private string $email = '';
     private ?string $dataCadastro = null;
-    
+
     // getters 
 
-    public function getId(): ?int {
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function getNome(): string {
+    public function getNome(): string
+    {
         return $this->nome;
-    }   
+    }
 
-    public function getTelefone(): string {
+    public function getTelefone(): string
+    {
         return $this->telefone;
     }
 
-    public function getEmail(): string {
+    public function getEmail(): string
+    {
         return $this->email;
     }
 
-    public function getDataCadastro(): ?string {
+    public function getDataCadastro(): ?string
+    {
         return $this->dataCadastro;
     }
 
     // setters
 
-    public function setId(?int $id): void {
+    public function setId(?int $id): void
+    {
         $this->id = $id;
-    }   
+    }
 
-    public function setNome(string $nome): void {
-        
-        if(trim($nome) === '') {
+    public function setNome(string $nome): void
+    {
+
+        if (trim($nome) === '') {
             throw new InvalidArgumentException("O nome não pode ser vazio."); // lança uma exceção, que interrompe o método e 
-                                                                              //  avisa que o argumento é inválido. Quem chamou
-                                                                              // decide o que fazer com o erro.
+            //  avisa que o argumento é inválido. Quem chamou
+            // decide o que fazer com o erro.
         }
 
         $this->nome = trim($nome);
     }
 
-    public function setTelefone(string $telefone): void {
+    public function setTelefone(string $telefone): void
+    {
         $telefone = trim($telefone);
 
         if ($telefone === '') {
@@ -72,11 +81,11 @@ class Contato{
     public function setEmail(string $email): void
     {
         $email = trim($email);
-    
+
         if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException('E-mail inválido');
         }
-    
+
         $this->email = $email;
     }
 
@@ -91,7 +100,4 @@ class Contato{
             throw new InvalidArgumentException('Nome e telefone são obrigatórios');
         }
     }
-
 }
-
-?>

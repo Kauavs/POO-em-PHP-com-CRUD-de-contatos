@@ -35,4 +35,3 @@ try {
 } catch (mysqli_sql_exception $e) {
     echo 'Erro ao acessar o banco de dados: ' . htmlspecialchars($e->getMessage());
 }
-

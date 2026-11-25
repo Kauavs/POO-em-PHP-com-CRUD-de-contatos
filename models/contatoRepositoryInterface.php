@@ -1,6 +1,7 @@
 <?php
 
-interface ContatoRepositoryInterface {
+interface ContatoRepositoryInterface
+{
     public function listar(): array;               // array de Contato
     public function buscarPorId(int $id): ?Contato;
     public function inserir(Contato $contato): bool;
