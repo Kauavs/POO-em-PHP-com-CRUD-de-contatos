@@ -2,77 +2,89 @@
 
 class ContatoRepository implements ContatoRepositoryInterface
 {
-
     private mysqli $conn;
 
+    // Recebe o objeto de conexão e guarda só a conexão mysqli
     public function __construct(Conexaobanco $db)
-    { // Construtor recebe a conexão com o banco de dados
+    {
         $this->conn = $db->getConnection();
     }
 
+    // 1) LISTAR: devolve todos os contatos
     public function listar(): array
     {
-        $result = $this->conn->query("SELECT * FROM contatos ORDER BY nome ASC");
-        $contatos = [];  // Cria um array vazio que vai receber os objetos Contato
-        while ($row = $result->fetch_assoc()) {
-            $contatos[] = $this->criarContato($row);
-        } // Cria classe contatos e guarda os valores (arrays) dentro
+        $resultado = $this->conn->query("SELECT * FROM contatos ORDER BY nome ASC");
+
+        $contatos = [];
+        foreach ($resultado as $linha) {          // cada $linha é um array do banco
+            $contatos[] = $this->linhaParaContato($linha);
+        }
+
         return $contatos;
     }
 
+    // 2) BUSCAR POR ID: devolve um contato ou null
     public function buscarPorId(int $id): ?Contato
     {
-        $stmt = $this->conn->prepare("SELECT * FROM contatos WHERE id = ?"); // Prepara o comando para chamar por id 
-        $stmt->bind_param("i", $id); // Coloca valor no lugar de ?
-        $stmt->execute();
-        $row = $stmt->get_result()->fetch_assoc(); // Ler o resultado. 
-        $stmt->close();
-        return $row ? $this->criarContato($row) : null;
+        $stmt = $this->conn->prepare("SELECT * FROM contatos WHERE id = ?");
+        $stmt->execute([$id]);                     // o valor entra no ?
+
+        $linha = $stmt->get_result()->fetch_assoc();
+
+        if ($linha === null) {                     // não achou
+            return null;
+        }
+
+        return $this->linhaParaContato($linha);
     }
 
-    public function inserir(Contato $c): bool
+    // 3) INSERIR: grava um contato novo
+    public function inserir(Contato $contato): bool
     {
-        $stmt = $this->conn->prepare("INSERT INTO contatos (nome, telefone, email) VALUES (?, ?, ?)"); //Prepara comando
-        $nome = $c->getNome();
-        $tel = $c->getTelefone();
-        $email = $c->getEmail(); //Pega os dados do objeto para ler os valores
-        $stmt->bind_param("sss", $nome, $tel, $email); // Colocar valor no lugar de ?
-        $ok = $stmt->execute();
-        $stmt->close();
-        return $ok;
+        $stmt = $this->conn->prepare(
+            "INSERT INTO contatos (nome, telefone, email) VALUES (?, ?, ?)"
+        );
+
+        return $stmt->execute([
+            $contato->getNome(),
+            $contato->getTelefone(),
+            $contato->getEmail(),
+        ]);
     }
 
-    public function atualizar(Contato $c): bool
+    // 4) ATUALIZAR: altera um contato que já existe
+    public function atualizar(Contato $contato): bool
     {
-        $stmt = $this->conn->prepare("UPDATE contatos SET nome = ?, telefone = ?, email = ? WHERE id = ?"); //Prepara comando
-        $nome = $c->getNome();
-        $tel = $c->getTelefone();
-        $email = $c->getEmail();
-        $id = $c->getId(); //Pega os dados do objeto para ler os valores
-        $stmt->bind_param("sssi", $nome, $tel, $email, $id); // Colocar valor no lugar de ?
-        $ok = $stmt->execute();
-        $stmt->close();
-        return $ok;
+        $stmt = $this->conn->prepare(
+            "UPDATE contatos SET nome = ?, telefone = ?, email = ? WHERE id = ?"
+        );
+
+        return $stmt->execute([
+            $contato->getNome(),
+            $contato->getTelefone(),
+            $contato->getEmail(),
+            $contato->getId(),
+        ]);
     }
 
+    // 5) EXCLUIR: apaga pelo id
     public function excluir(int $id): bool
     {
-        $stmt = $this->conn->prepare("DELETE FROM contatos WHERE id = ?"); //Prepara comando
-        $stmt->bind_param("i", $id); // Colocar valor no lugar de ?
-        $ok = $stmt->execute();
-        $stmt->close();
-        return $ok;
+        $stmt = $this->conn->prepare("DELETE FROM contatos WHERE id = ?");
+
+        return $stmt->execute([$id]);
     }
 
-    // método privado: detalhe interno, ninguém de fora precisa chamar
-    private function criarContato(array $row): Contato
+    // Transforma uma linha do banco (array) em um objeto Contato
+    private function linhaParaContato(array $linha): Contato
     {
-        $c = new Contato();
-        $c->setId((int) $row['id']);
-        $c->setNome($row['nome']);
-        $c->setTelefone($row['telefone']);
-        $c->setEmail($row['email'] ?? '');
-        $c->setDataCadastro($row['data_cadastro']);
-        return $c;
+        $contato = new Contato();
+        $contato->setId((int) $linha['id']);
+        $contato->setNome($linha['nome']);
+        $contato->setTelefone($linha['telefone']);
+        $contato->setEmail($linha['email'] ?? '');   // email pode ser NULL no banco
+        $contato->setDataCadastro($linha['data_cadastro']);
+
+        return $contato;
     }
 }
